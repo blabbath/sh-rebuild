@@ -1,15 +1,21 @@
 {
-  "name": "ol-raster",
+  "name": "sh-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --host localhost",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@cds/city": "^1.1.0",
+    "@cds/core": "^5.5.8",
+    "axios": "^0.23.0",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "ol": "^6.7.0",
+    "qs": "^6.10.1",
+    "vue": "^3.0.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
