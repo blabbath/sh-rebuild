@@ -3,7 +3,7 @@
     <label>Mosaicking Order</label>
     <select @change="updateLayer" v-model="update">
       <option
-        v-for="option in options"
+        v-for="option in satelliteOptions[satellite].mosaickingOrder"
         :key="option"
         :name="option.name"
         :value="option.value"
@@ -15,30 +15,31 @@
 </template>
 
 <script>
+import satelliteOptions from "../js/satelliteOptions";
+
 export default {
+  props: ["namespace"],
+
   data() {
-    return {
-      options: [
-        { name: "most Recent", value: "mostRecent" },
-        { name: "least Recent", value: "leastRecent" },
-        { name: "least Cloud Cover", value: "leastCC" },
-      ],
-    };
+    return { satelliteOptions };
   },
 
   computed: {
+    satellite() {
+      return this.$store.state[this.namespace].satellite;
+    },
+
     update: {
       get() {
-        return this.$store.state.map.mosaickingOrder;
+        return this.$store.state[this.namespace].mosaickingOrder;
       },
 
       set(value) {
-        this.$store.commit(`map/SET_MOSAICKING_ORDER`, value);
+        this.$store.commit(`${this.namespace}/SET_MOSAICKING_ORDER`, value);
       },
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

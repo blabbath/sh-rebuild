@@ -18,6 +18,7 @@ import { fromExtent } from "ol/geom/Polygon";
 import { mapState } from "vuex";
 
 import instance from "../html/endpoint.instance";
+import satelliteOptions from "../js/satelliteOptions";
 
 const drawSource = new VectorSource({ wrapX: false });
 export default {
@@ -37,11 +38,35 @@ export default {
         geometryFunction: createBox(),
       }),
       crs: "http://www.opengis.net/def/crs/EPSG/0/3857",
+      satelliteOptions,
     };
   },
 
   computed: {
-    ...mapState("map", ["maxCC", "mosaickingOrder", "satellite", "evalscript"]),
+    ...mapState("shared", ["evalscript"]),
+    inputs() {
+      let array = [];
+      this.$store.state.shared.inputModules.forEach((e) => {
+        array.push({
+          dataFilter: {
+            timeRange: {
+              from: "2019-06-01T00:00:00Z",
+              to: "2019-10-03T23:59:59Z",
+            },
+            ...(satelliteOptions[e] &&
+              satelliteOptions[e].cloudCoverage && {
+                maxCloudCoverage: this.$store.state[e].maxCC,
+              }),
+            mosaickingOrder: this.$store.state[e].mosaickingOrder,
+          },
+          type: this.$store.state[e].satellite,
+          ...(this.$store.state[e].identifier && {
+            id: this.$store.state[e].identifier,
+          }),
+        });
+      });
+      return array;
+    },
   },
 
   mounted() {
@@ -84,8 +109,8 @@ export default {
     fetchImage(e) {
       this.bbox = e.feature.getGeometry().getExtent(); //get drawn Polygon extent
       let area = getArea(fromExtent(this.bbox));
-      this.$store.commit("map/SET_AREA", area);
-      this.$store.commit("map/SET_GeoJSON", this.bbox);
+      this.$store.commit("shared/SET_AREA", area);
+      this.$store.commit("shared/SET_GeoJSON", this.bbox);
 
       this.removeImage(); //remove previous image before loading the next one
 
@@ -102,19 +127,7 @@ export default {
                 crs: this.crs,
               },
             },
-            data: [
-              {
-                dataFilter: {
-                  timeRange: {
-                    from: "2021-04-18T00:00:00Z",
-                    to: "2021-10-18T23:59:59Z",
-                  },
-                  maxCloudCoverage: this.maxCC,
-                  mosaickingOrder: this.mosaickingOrder,
-                },
-                type: this.satellite,
-              },
-            ],
+            data: [...this.inputs],
           },
           evalscript: this.evalscript,
         }),
@@ -124,7 +137,7 @@ export default {
           this.removePolygon();
         })
         .catch(() => {
-          this.$store.commit(`map/ERROR_OCCURED`);
+          this.$store.commit(`shared/ERROR_OCCURED`);
         });
     },
 

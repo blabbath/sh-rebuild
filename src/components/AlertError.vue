@@ -21,7 +21,7 @@ export default {
 
   computed: {
     counter() {
-      return this.$store.state.map.errorCount;
+      return this.$store.state.shared.errorCount;
     },
   },
 

@@ -1,8 +1,11 @@
 <template>
-  <cds-textarea>
-    <label>Evalscript</label>
-    <textarea v-model="update"></textarea>
-  </cds-textarea>
+  <div div cds-layout="p-t:lg">
+    <cds-divider></cds-divider>
+    <cds-textarea cds-layout="m-y:lg">
+      <label>Evalscript</label>
+      <textarea v-model="update"></textarea>
+    </cds-textarea>
+  </div>
 </template>
 
 <script>
@@ -10,11 +13,11 @@ export default {
   computed: {
     update: {
       get() {
-        return this.$store.state.map.evalscript;
+        return this.$store.state.shared.evalscript;
       },
 
       set(value) {
-        this.$store.commit(`map/SET_EVALSCRIPT`, value);
+        this.$store.commit(`shared/SET_EVALSCRIPT`, value);
       },
     },
   },

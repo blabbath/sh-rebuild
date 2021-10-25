@@ -1,9 +1,11 @@
 import { createStore } from "vuex";
 
-import map from "./modules/map/index";
+import input from "./modules/input/index";
+import shared from "./modules/shared/index";
 
 export default createStore({
   modules: {
-    map,
+    input,
+    shared,
   },
 });

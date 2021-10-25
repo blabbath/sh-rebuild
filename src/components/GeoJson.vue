@@ -8,10 +8,9 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState("map", ["geojson"]),
+    ...mapState("shared", ["geojson"]),
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

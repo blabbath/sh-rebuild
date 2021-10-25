@@ -7,10 +7,9 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState("map", ["area"]),
+    ...mapState("shared", ["area"]),
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

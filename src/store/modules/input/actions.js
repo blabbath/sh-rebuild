@@ -11,19 +11,11 @@ export default {
     commit("SET_SATELLITE", values);
   },
 
-  SET_EVALSCRIPT({ commit }, values) {
-    commit("SET_EVALSCRIPT", values);
+  SET_IDENTIFIER({ commit }, identifier) {
+    commit("SET_IDENTIFIER", identifier);
   },
 
-  SET_AREA({ commit }, value) {
-    commit("SET_AREA", value);
-  },
-
-  SET_GeoJSON({ commit }, value) {
-    commit("SET_GeoJSON", value);
-  },
-
-  ERROR_OCCURED({ commit }) {
-    commit("ERROR_OCCURED");
+  SET_NAMESPACE({ commit }, id) {
+    commit("SET_NAMESPACE", id);
   },
 };

@@ -16,20 +16,26 @@
 
 <script>
 export default {
+  props: ["namespace"],
+
   data() {
     return {
       options: [
-        { name: "sentinel-2-l2a", value: "sentinel-2-l2a" },
-        { name: "sentinel-2-l1c", value: "sentinel-2-l1c" },
-        { name: "landsat-ot-l1", value: "landsat-ot-l1" },
-        { name: "landsat-ot-l2", value: "landsat-ot-l2" },
-        { name: "landsat-tm-l1", value: "landsat-tm-l1" },
-        { name: "landsat-tm-l2", value: "landsat-tm-l2" },
-        { name: "landsat-mss-l1", value: "landsat-mss-l1" },
-        { name: "landsat-etm-l1", value: "landsat-etm-l1" },
-        { name: "landsat-etm-l2", value: "landsat-etm-l2" },
-        { name: "modis", value: "modis" },
-        { name: "dem", value: "dem" },
+        { name: "Sentinel-2 L2a", value: "sentinel-2-l2a" },
+        { name: "Sentinel-2 L1c", value: "sentinel-2-l1c" },
+        { name: "Landsat 8 L1", value: "landsat-ot-l1" },
+        { name: "Landsat 8 L2", value: "landsat-ot-l2" },
+        { name: "Landsat 4-5 TM L1", value: "landsat-tm-l1" },
+        { name: "Landsat 4-5 TM L2", value: "landsat-tm-l2" },
+        { name: "Landsat 1-5 MSS L1", value: "landsat-mss-l1" },
+        { name: "Landsat 7 ETM+ L1", value: "landsat-etm-l1" },
+        { name: "Landsat 7 ETM+ L2", value: "landsat-etm-l2" },
+        { name: "MODIS", value: "modis" },
+        { name: "DEM", value: "dem" },
+        { name: "Sentinel-3 OLCI L1B", value: "sentinel-3-olci" },
+        { name: "Sentinel-1-GRD", value: "sentinel-1-grd" },
+        { name: "Sentinel-3 SLSTR L1B", value: "sentinel-3-slstr" },
+        { name: "Sentinel-5P L2", value: "sentinel-5p-l2" },
       ],
     };
   },
@@ -37,16 +43,15 @@ export default {
   computed: {
     update: {
       get() {
-        return this.$store.state.map.satellite;
+        return this.$store.state[this.namespace].satellite;
       },
 
       set(value) {
-        this.$store.commit(`map/SET_SATELLITE`, value);
+        this.$store.commit(`${this.namespace}/SET_SATELLITE`, value);
       },
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

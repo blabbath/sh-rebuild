@@ -1,16 +1,4 @@
 export default {
-  SET_MAX_CC(state, values) {
-    state.maxCC = values;
-  },
-
-  SET_MOSAICKING_ORDER(state, values) {
-    state.mosaickingOrder = values;
-  },
-
-  SET_SATELLITE(state, values) {
-    state.satellite = values;
-  },
-
   SET_EVALSCRIPT(state, values) {
     state.evalscript = values;
   },
@@ -35,5 +23,13 @@ export default {
 
   ERROR_OCCURED(state) {
     state.errorCount = state.errorCount + 1;
+  },
+
+  ADD_INPUT_MODULE(state, module) {
+    state.inputModules.push(module);
+  },
+
+  REMOVE_INPUT_MODULE(state, id) {
+    state.inputModules = state.inputModules.filter((i) => i !== id);
   },
 };

@@ -1,8 +1,6 @@
 /* INITIAL STATE */
 export default () => ({
-  maxCC: 10,
-  mosaickingOrder: "leastCC",
-  satellite: "sentinel-2-l2a",
+  inputModules: ["input"],
   errorCount: 0,
   evalscript: `
       //VERSION=3

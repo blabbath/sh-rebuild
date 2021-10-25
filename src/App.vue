@@ -1,13 +1,15 @@
 <template>
   <app-alert-error></app-alert-error>
-  <div layout wide>
-    <div cds-layout="grid gap:md">
-      <div cds-layout="col@sm:4 p-y:md p-x:xl"><app-form></app-form></div>
-      <div cds-layout="col@sm:8 p:md p-x:xl">
-        <app-map></app-map>
-        <app-area></app-area>
-        <app-geo-json></app-geo-json>
-      </div>
+  <div cds-layout="grid gap:md m-y:xl">
+    <div cds-layout="col@sm:4 p-y:md p-x:xl" class="form-column">
+      <app-form></app-form>
+      <app-evalscript></app-evalscript>
+      <app-information></app-information>
+    </div>
+    <div cds-layout="col@sm:8 p:md p-x:xl">
+      <app-map></app-map>
+      <app-area></app-area>
+      <app-geo-json></app-geo-json>
     </div>
   </div>
 </template>
@@ -19,6 +21,8 @@ import AppArea from "./components/Area.vue";
 import AppGeoJson from "./components/GeoJson.vue";
 import AppForm from "./components/Form.vue";
 import AppAlertError from "./components/AlertError.vue";
+import AppEvalscript from "./components/Evalscript.vue";
+import AppInformation from "./components/Information.vue";
 
 export default {
   name: "App",
@@ -29,6 +33,8 @@ export default {
     AppGeoJson,
     AppForm,
     AppAlertError,
+    AppEvalscript,
+    AppInformation,
   },
 };
 </script>
@@ -43,7 +49,7 @@ export default {
 
 #app {
   color: #2c3e50;
-  margin-top: 60px;
   width: 100%;
+  height: 100%;
 }
 </style>
