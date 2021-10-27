@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    props: ['namespace'],
+    inject: ['namespace'],
 
     computed: {
         update: {

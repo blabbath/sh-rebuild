@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    props: ['namespace'],
+    inject: ['namespace'],
 
     data() {
         return {

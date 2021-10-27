@@ -12,7 +12,7 @@
 import satelliteOptions from '../js/satelliteOptions';
 
 export default {
-    props: ['namespace'],
+    inject: ['namespace'],
 
     data() {
         return { satelliteOptions };

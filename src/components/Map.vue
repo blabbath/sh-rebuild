@@ -28,7 +28,7 @@ import { fromExtent } from 'ol/geom/Polygon';
 import { mapState } from 'vuex';
 
 import instance from '../html/endpoint.instance';
-import satelliteOptions from '../js/satelliteOptions';
+import satOptions from '../js/satelliteOptions';
 
 const drawSource = new VectorSource({ wrapX: false });
 
@@ -54,7 +54,6 @@ export default {
                 geometryFunction: createBox(),
             }),
             crs: 'http://www.opengis.net/def/crs/EPSG/0/3857',
-            satelliteOptions,
             body: null,
             showBody: null,
         };
@@ -73,22 +72,22 @@ export default {
                     }),
 
                     dataFilter: {
-                        ...(satelliteOptions[sat].date && {
+                        ...(satOptions[sat].date && {
                             timeRange: {
                                 from: `${this.$store.state[element].dateMin}T00:00:00Z`,
                                 to: `${this.$store.state[element].dateMax}T23:59:59Z`,
                             },
                         }),
-                        ...(satelliteOptions[sat].cloudCoverage && {
+                        ...(satOptions[sat].cloudCoverage && {
                             maxCloudCoverage: this.$store.state[element].maxCC,
                         }),
-                        ...(satelliteOptions[sat].tiers && {
+                        ...(satOptions[sat].tiers && {
                             tiers: this.$store.state[element].tiers,
                         }),
-                        ...(satelliteOptions[sat].demInstance && {
+                        ...(satOptions[sat].demInstance && {
                             demInstance: this.$store.state[element].demInstance,
                         }),
-                        ...(satelliteOptions[sat].orbitDirection && {
+                        ...(satOptions[sat].orbitDirection && {
                             orbitDirection:
                                 this.$store.state[element].orbitDirection,
                         }),
@@ -99,14 +98,14 @@ export default {
                     processing: {
                         upsampling: this.$store.state[element].upsampling,
                         downsampling: this.$store.state[element].downsampling,
-                        ...(satelliteOptions[sat].egm && {
+                        ...(satOptions[sat].egm && {
                             egm: this.$store.state[element].egm,
                         }),
-                        ...(satelliteOptions[sat].clampNegative && {
+                        ...(satOptions[sat].clampNegative && {
                             clampNegative:
                                 this.$store.state[element].clampNegative,
                         }),
-                        ...(satelliteOptions[sat].minQa && {
+                        ...(satOptions[sat].minQa && {
                             minQa: this.$store.state[element].minQa,
                         }),
                     },
