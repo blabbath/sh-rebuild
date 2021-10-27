@@ -13,7 +13,7 @@
                 /> </cds-toggle
         ></cds-toggle-group>
         <div v-if="show" cds-layout="vertical gap:md">
-            <app-date-picker v-if="satOptions[sat].date"> </app-date-picker>
+            <app-date-picker v-if="satOptions[sat].date"></app-date-picker>
             <app-max-CC v-if="satOptions[sat].cloudCoverage"></app-max-CC>
             <app-mosaick v-if="satOptions[sat].mosaickOrder"></app-mosaick>
             <app-up-sampling></app-up-sampling>

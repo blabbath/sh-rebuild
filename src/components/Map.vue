@@ -27,7 +27,7 @@ import { getArea } from 'ol/sphere';
 import { fromExtent } from 'ol/geom/Polygon';
 import { mapState } from 'vuex';
 
-import instance from '../html/endpoint.instance';
+import instance from '../instance/endpoint.instance';
 import satOptions from '../js/satelliteOptions';
 
 const drawSource = new VectorSource({ wrapX: false });

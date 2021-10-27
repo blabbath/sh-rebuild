@@ -4,7 +4,7 @@
         <div cds-layout="col@sm:4 p-y:md p-x:xl" class="form-column">
             <app-form></app-form>
             <app-evalscript></app-evalscript>
-            <app-information></app-information>
+            <app-help></app-help>
         </div>
         <div cds-layout="col@sm:8 p:md p-x:xl">
             <app-map></app-map>
@@ -19,7 +19,7 @@ import AppMap from './components/Map.vue';
 import AppForm from './components/Form.vue';
 import AppAlertError from './components/AlertError.vue';
 import AppEvalscript from './components/Evalscript.vue';
-import AppInformation from './components/Information.vue';
+import AppHelp from './components/Help.vue';
 
 export default {
     name: 'App',
@@ -29,7 +29,7 @@ export default {
         AppForm,
         AppAlertError,
         AppEvalscript,
-        AppInformation,
+        AppHelp,
     },
 };
 </script>

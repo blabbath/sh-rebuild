@@ -35,6 +35,11 @@ export default {
                     url: 'https://custom-scripts.sentinel-hub.com/#sentinel-3',
                     extra: 'This repository contains a collection of custom scripts for Sentinel Hub, which can be fed to the services via the URL.',
                 },
+                {
+                    name: 'EVALSCRIPT',
+                    url: 'https://docs.sentinel-hub.com/api/latest/evalscript/',
+                    extra: 'Documentation for EVALSCRIPT V3.',
+                },
             ],
         };
     },

@@ -9,6 +9,11 @@ import '@cds/core/input/register.js';
 import '@cds/core/date/register.js';
 
 import '@cds/core/icon/register.js';
-import { ClarityIcons, timesIcon, plusCircleIcon } from '@cds/core/icon';
+import {
+    ClarityIcons,
+    timesIcon,
+    plusCircleIcon,
+    infoCircleIcon,
+} from '@cds/core/icon';
 
-ClarityIcons.addIcons(timesIcon, plusCircleIcon);
+ClarityIcons.addIcons(timesIcon, plusCircleIcon, infoCircleIcon);
