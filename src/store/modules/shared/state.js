@@ -1,8 +1,8 @@
 /* INITIAL STATE */
 export default () => ({
-  inputModules: ["input"],
-  errorCount: 0,
-  evalscript: `
+    inputModules: ['input'],
+    errorCount: 0,
+    evalscript: `
       //VERSION=3
       function setup() {
         return {
@@ -23,6 +23,6 @@ export default () => ({
         return [2.5 * sample.B04, 2.5 * sample.B03, 2.5 * sample.B02];
       }
   `,
-  area: null,
-  geojson: null,
+    area: null,
+    geojson: null,
 });

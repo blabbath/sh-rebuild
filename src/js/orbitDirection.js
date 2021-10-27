@@ -1,4 +1,4 @@
 export default [
-  { name: "Ascending", value: "ASCENDING" },
-  { name: "Descending", value: "DESCENDING" },
+    { name: 'Ascending', value: 'ASCENDING' },
+    { name: 'Descending', value: 'DESCENDING' },
 ];

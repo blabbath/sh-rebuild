@@ -1,38 +1,38 @@
 <template>
-  <cds-toggle-group layout="horizontal-inline">
-    <label>Apply EGM</label>
-    <cds-toggle>
-      <label></label>
-      <input type="checkbox" v-model="update" />
-    </cds-toggle>
-  </cds-toggle-group>
+    <cds-toggle-group layout="horizontal-inline">
+        <label>Apply EGM</label>
+        <cds-toggle>
+            <label></label>
+            <input type="checkbox" v-model="update" />
+        </cds-toggle>
+    </cds-toggle-group>
 </template>
 
 <script>
-import satelliteOptions from "../js/satelliteOptions";
+import satelliteOptions from '../js/satelliteOptions';
 
 export default {
-  props: ["namespace"],
+    props: ['namespace'],
 
-  data() {
-    return { satelliteOptions };
-  },
-
-  computed: {
-    satellite() {
-      return this.$store.state[this.namespace].satellite;
+    data() {
+        return { satelliteOptions };
     },
 
-    update: {
-      get() {
-        return this.$store.state[this.namespace].egm;
-      },
+    computed: {
+        satellite() {
+            return this.$store.state[this.namespace].satellite;
+        },
 
-      set(value) {
-        this.$store.commit(`${this.namespace}/SET_EGM`, value);
-      },
+        update: {
+            get() {
+                return this.$store.state[this.namespace].egm;
+            },
+
+            set(value) {
+                this.$store.commit(`${this.namespace}/SET_EGM`, value);
+            },
+        },
     },
-  },
 };
 </script>
 
