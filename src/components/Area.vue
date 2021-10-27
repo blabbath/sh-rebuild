@@ -1,5 +1,8 @@
 <template>
-  <p v-html="area" cds-text="body" cds-layout="p-y:lg"></p>
+  <div>
+    <p cds-text="section" cds-layout="p-b:md">Area of interest:</p>
+    <p v-html="area" cds-text="body"></p>
+  </div>
 </template>
 
 <script>

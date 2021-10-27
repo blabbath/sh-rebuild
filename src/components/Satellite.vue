@@ -1,7 +1,7 @@
 <template>
   <cds-select>
     <label>Input</label>
-    <select @change="updateLayer" v-model="update">
+    <select  v-model="update">
       <option
         v-for="option in options"
         :key="option"
@@ -32,8 +32,8 @@ export default {
         { name: "Landsat 7 ETM+ L2", value: "landsat-etm-l2" },
         { name: "MODIS", value: "modis" },
         { name: "DEM", value: "dem" },
-        { name: "Sentinel-3 OLCI L1B", value: "sentinel-3-olci" },
         { name: "Sentinel-1-GRD", value: "sentinel-1-grd" },
+        { name: "Sentinel-3 OLCI L1B", value: "sentinel-3-olci" },
         { name: "Sentinel-3 SLSTR L1B", value: "sentinel-3-slstr" },
         { name: "Sentinel-5P L2", value: "sentinel-5p-l2" },
       ],

@@ -1,5 +1,5 @@
 <template>
-  <p cds-text="body">GeoJSON:</p>
+  <p cds-text="section">GeoJSON:</p>
   <pre v-html="geojson" cds-text="body" cds-layout="p-y:lg"></pre>
 </template>
 

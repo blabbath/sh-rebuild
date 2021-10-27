@@ -5,13 +5,9 @@ export default {
 
   SET_AREA(state, area) {
     if (area > 10000) {
-      state.area = `Polygon-Fläche: ${
-        Math.round((area / 1000000) * 100) / 100
-      } km<sup>2</sup>`;
+      state.area = `${Math.round((area / 1000000) * 100) / 100} km<sup>2</sup>`;
     } else {
-      state.area = `Polygon-Fläche: ${
-        Math.round(area * 100) / 100
-      } m<sup>2</sup>`;
+      state.area = `${Math.round(area * 100) / 100} m<sup>2</sup>`;
     }
   },
 

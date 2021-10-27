@@ -2,7 +2,7 @@
   <div cds-layout="p-t:lg">
     <cds-divider></cds-divider>
     <div cds-layout="m-y:lg">
-      <p cds-text="title">HELP</p>
+      <p cds-text="section">HELP</p>
       <ul>
         <li v-for="info in infos" :key="info" cds-layout="p-b:lg">
           <p cds-text="message" cds-layout="p-b:md">
@@ -34,7 +34,8 @@ export default {
         {
           name: "Custom Scripts",
           url: "https://custom-scripts.sentinel-hub.com/#sentinel-3",
-          extra: "This repository contains a collection of custom scripts for Sentinel Hub, which can be fed to the services via the URL.",
+          extra:
+            "This repository contains a collection of custom scripts for Sentinel Hub, which can be fed to the services via the URL.",
         },
       ],
     };

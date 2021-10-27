@@ -2,6 +2,16 @@
   <div class="main">
     <div id="map" class="map"></div>
   </div>
+  <div cds-layout="grid">
+    <div cds-layout="col@xl:3 p-y:lg">
+      <app-geo-json></app-geo-json>
+      <app-area></app-area>
+    </div>
+    <div cds-layout="col@xl:9 p-y:lg">
+      <p cds-text="section">Request Preview:</p>
+      <pre v-html="showBody"></pre>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -21,7 +31,13 @@ import instance from "../html/endpoint.instance";
 import satelliteOptions from "../js/satelliteOptions";
 
 const drawSource = new VectorSource({ wrapX: false });
+
+import AppArea from "./Area.vue";
+import AppGeoJson from "./GeoJson.vue";
+
 export default {
+  components: { AppArea, AppGeoJson },
+
   data() {
     return {
       map: null,
@@ -39,6 +55,8 @@ export default {
       }),
       crs: "http://www.opengis.net/def/crs/EPSG/0/3857",
       satelliteOptions,
+      body: null,
+      showBody: null,
     };
   },
 
@@ -46,26 +64,62 @@ export default {
     ...mapState("shared", ["evalscript"]),
     inputs() {
       let array = [];
-      this.$store.state.shared.inputModules.forEach((e) => {
+      this.$store.state.shared.inputModules.forEach((element) => {
+        let sat = this.$store.state[element].satellite;
         array.push({
-          dataFilter: {
-            timeRange: {
-              from: "2019-06-01T00:00:00Z",
-              to: "2019-10-03T23:59:59Z",
-            },
-            ...(satelliteOptions[e] &&
-              satelliteOptions[e].cloudCoverage && {
-                maxCloudCoverage: this.$store.state[e].maxCC,
-              }),
-            mosaickingOrder: this.$store.state[e].mosaickingOrder,
-          },
-          type: this.$store.state[e].satellite,
-          ...(this.$store.state[e].identifier && {
-            id: this.$store.state[e].identifier,
+          type: this.$store.state[element].satellite,
+          ...(this.$store.state[element].identifier && {
+            id: this.$store.state[element].identifier,
           }),
+
+          dataFilter: {
+            ...(satelliteOptions[sat].date && {
+              timeRange: {
+                from: `${this.$store.state[element].dateMin}T00:00:00Z`,
+                to: `${this.$store.state[element].dateMax}T23:59:59Z`,
+              },
+            }),
+            ...(satelliteOptions[sat].cloudCoverage && {
+              maxCloudCoverage: this.$store.state[element].maxCC,
+            }),
+            ...(satelliteOptions[sat].tiers && {
+              tiers: this.$store.state[element].tiers,
+            }),
+            ...(satelliteOptions[sat].demInstance && {
+              demInstance: this.$store.state[element].demInstance,
+            }),
+            ...(satelliteOptions[sat].orbitDirection && {
+              orbitDirection: this.$store.state[element].orbitDirection,
+            }),
+            mosaickingOrder: this.$store.state[element].mosaickingOrder,
+          },
+
+          processing: {
+            upsampling: this.$store.state[element].upsampling,
+            downsampling: this.$store.state[element].downsampling,
+            ...(satelliteOptions[sat].egm && {
+              egm: this.$store.state[element].egm,
+            }),
+            ...(satelliteOptions[sat].clampNegative && {
+              clampNegative: this.$store.state[element].clampNegative,
+            }),
+            ...(satelliteOptions[sat].minQa && {
+              minQa: this.$store.state[element].minQa,
+            }),
+          },
         });
       });
       return array;
+    },
+  },
+
+  watch: {
+    inputs() {
+      this.createBody();
+    },
+
+    evalscript() {
+      this.createBody();
     },
   },
 
@@ -78,6 +132,7 @@ export default {
         zoom: 10,
       }),
     });
+    this.createBody();
 
     this.map.addInteraction(this.draw);
 
@@ -86,8 +141,34 @@ export default {
   },
 
   methods: {
-    removePolygon() {
-      drawSource.clear();
+    createBody() {
+      let body = {
+        input: {
+          bounds: {
+            bbox: this.bbox,
+            properties: {
+              crs: this.crs,
+            },
+          },
+          data: [...this.inputs],
+        },
+        evalscript: null,
+      };
+
+      body.evalscript = this.evalscript;
+      this.body = JSON.stringify(body);
+      body.evalscript = this.evalscript.replace(/\n/g, "<br>"); //For better readability in the browser
+      this.showBody = JSON.stringify(body);
+    },
+
+    removeImage() {
+      this.map //remove previously loaded image
+        .getLayers()
+        .getArray()
+        .filter((l) => l.get("name") === "sentinel-layer")
+        .forEach((sentinelLayer) => {
+          this.map.removeLayer(sentinelLayer);
+        });
     },
 
     addImage(response) {
@@ -106,31 +187,25 @@ export default {
       this.map.addLayer(layer);
     },
 
+    removePolygon() {
+      drawSource.clear();
+    },
+
     fetchImage(e) {
       this.bbox = e.feature.getGeometry().getExtent(); //get drawn Polygon extent
       let area = getArea(fromExtent(this.bbox));
+      this.createBody();
+
       this.$store.commit("shared/SET_AREA", area);
       this.$store.commit("shared/SET_GeoJSON", this.bbox);
 
       this.removeImage(); //remove previous image before loading the next one
-
       instance({
         method: "POST",
         url: "/api/v1/process",
         headers: { "Content-Type": "application/json" },
         responseType: "blob",
-        data: JSON.stringify({
-          input: {
-            bounds: {
-              bbox: this.bbox,
-              properties: {
-                crs: this.crs,
-              },
-            },
-            data: [...this.inputs],
-          },
-          evalscript: this.evalscript,
-        }),
+        data: this.body,
       })
         .then((response) => {
           this.addImage(response);
@@ -138,16 +213,6 @@ export default {
         })
         .catch(() => {
           this.$store.commit(`shared/ERROR_OCCURED`);
-        });
-    },
-
-    removeImage() {
-      this.map //remove previously loaded image
-        .getLayers()
-        .getArray()
-        .filter((l) => l.get("name") === "sentinel-layer")
-        .forEach((sentinelLayer) => {
-          this.map.removeLayer(sentinelLayer);
         });
     },
   },
@@ -166,9 +231,5 @@ export default {
   width: 100%;
   height: 700px;
   cursor: pointer;
-}
-
-#threshold {
-  margin: 0 0.6em;
 }
 </style>

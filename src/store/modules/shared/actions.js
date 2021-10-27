@@ -22,5 +22,4 @@ export default {
   REMOVE_INPUT_MODULE({ commit }, i) {
     commit("REMOVE_INPUT_MODULE", i);
   },
-
 };

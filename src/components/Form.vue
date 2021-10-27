@@ -1,22 +1,22 @@
 <template>
   <form>
-    <cds-form-group layout="compact">
-      <div v-for="(id, i) in ids" :key="id">
-        <app-input-group
-          :namespace="id"
-          :lengthInput="ids.length"
-        ></app-input-group>
-        <div v-if="i > 0" cds-layout="p-t:md">
+    <p cds-text="section" cds-layout="p-b:md">Data Collection</p>
+
+    <cds-form-group v-for="(id, i) in ids" :key="id" cds-layout="p-b:md">
+      <app-input-group :namespace="id" :lengthInput="ids.length"
+        ><div v-if="i > 0" cds-layout="p-t:md">
           <cds-button
             status="danger"
             size="sm"
             @click.prevent="removeModule(id)"
             >Remove Input</cds-button
           >
-        </div>
-      </div>
-      <cds-button size="sm" @click.prevent="addModule">Add Input </cds-button>
+        </div></app-input-group
+      >
     </cds-form-group>
+    <div cds-layout="p-y:md">
+      <cds-button size="sm" @click.prevent="addModule">Add Input </cds-button>
+    </div>
   </form>
 </template>
 
@@ -38,13 +38,6 @@ export default {
   },
 
   methods: {
-    removeModule(id) {
-      if (this.$store.hasModule(id)) {
-        this.$store.unregisterModule(id);
-        this.$store.commit(`shared/REMOVE_INPUT_MODULE`, id);
-      }
-    },
-
     addModule() {
       let id = uuidv4();
 
@@ -52,6 +45,13 @@ export default {
         this.$store.registerModule(id, input);
         this.$store.commit(`${id}/SET_NAMESPACE`, id);
         this.$store.commit(`shared/ADD_INPUT_MODULE`, id);
+      }
+    },
+
+    removeModule(id) {
+      if (this.$store.hasModule(id)) {
+        this.$store.unregisterModule(id);
+        this.$store.commit(`shared/REMOVE_INPUT_MODULE`, id);
       }
     },
   },

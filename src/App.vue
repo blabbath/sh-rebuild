@@ -8,8 +8,6 @@
     </div>
     <div cds-layout="col@sm:8 p:md p-x:xl">
       <app-map></app-map>
-      <app-area></app-area>
-      <app-geo-json></app-geo-json>
     </div>
   </div>
 </template>
@@ -17,8 +15,7 @@
 <script>
 import "./cds";
 import AppMap from "./components/Map.vue";
-import AppArea from "./components/Area.vue";
-import AppGeoJson from "./components/GeoJson.vue";
+
 import AppForm from "./components/Form.vue";
 import AppAlertError from "./components/AlertError.vue";
 import AppEvalscript from "./components/Evalscript.vue";
@@ -29,8 +26,6 @@ export default {
 
   components: {
     AppMap,
-    AppArea,
-    AppGeoJson,
     AppForm,
     AppAlertError,
     AppEvalscript,

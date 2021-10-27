@@ -1,9 +1,9 @@
 <template>
   <cds-select>
-    <label>Mosaicking Order</label>
-    <select v-model="update">
+    <label>Upsampling</label>
+    <select  v-model="update">
       <option
-        v-for="option in satelliteOptions[satellite].mosaickingOrder"
+        v-for="option in satelliteOptions[satellite].upsampling"
         :key="option"
         :name="option.name"
         :value="option.value"
@@ -31,11 +31,11 @@ export default {
 
     update: {
       get() {
-        return this.$store.state[this.namespace].mosaickingOrder;
+        return this.$store.state[this.namespace].upsampling;
       },
 
       set(value) {
-        this.$store.commit(`${this.namespace}/SET_MOSAICKING_ORDER`, value);
+        this.$store.commit(`${this.namespace}/SET_UPSAMPLING`, value);
       },
     },
   },

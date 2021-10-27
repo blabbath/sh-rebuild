@@ -1,111 +1,124 @@
+import mosaickingOrder from "./mosaickingOrder";
+import mosaickingOrderClouds from "./mosaickingOrderClouds";
+import upsampling from "./upsampling";
+import downsampling from "./downsampling";
+import tiers from "./tiers";
+import orbitDirection from "./orbitDirection";
+
 export default {
   "sentinel-2-l2a": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
   },
   "sentinel-2-l1c": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
   },
   "landsat-ot-l1": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    tiers,
   },
   "landsat-ot-l2": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    tiers,
   },
   "landsat-tm-l1": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    tiers,
   },
   "landsat-tm-l2": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    tiers,
   },
   "landsat-mss-l1": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    tiers,
   },
   "landsat-etm-l1": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    tiers,
   },
   "landsat-etm-l2": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    tiers,
   },
   modis: {
-    cloudCoverage: false,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-    ],
+    date: true,
+    mosaickingOrder: mosaickingOrder,
+    upsampling,
+    downsampling,
   },
-  dem: { cloudCoverage: false, mosaickingOrder: false },
-  "sentinel-3-olci": {
-    cloudCoverage: false,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
+  dem: {
+    upsampling,
+    downsampling,
+    demInstance: [
+      { name: "Mapzen", value: "MAPZEN" },
+      { name: "Copernicus 30/90m DEN", value: "COPERNICUS_30" },
+      { name: "Copernicus 90m DEN", value: "COPERNICUS_90" },
     ],
+    clampNegative: true,
+    egm: true,
   },
   "sentinel-1-grd": {
-    cloudCoverage: false,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-    ],
+    date: true,
+    mosaickingOrder: mosaickingOrder,
+    upsampling,
+    downsampling,
+    orbitDirection,
+  },
+  "sentinel-3-olci": {
+    date: true,
+    mosaickingOrder: mosaickingOrder,
+    upsampling,
+    downsampling,
   },
   "sentinel-3-slstr": {
+    date: true,
     cloudCoverage: true,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-      { name: "least Cloud Cover", value: "leastCC" },
-    ],
+    mosaickingOrder: mosaickingOrderClouds,
+    upsampling,
+    downsampling,
+    orbitDirection,
   },
   "sentinel-5p-l2": {
-    cloudCoverage: false,
-    mosaickingOrder: [
-      { name: "most Recent", value: "mostRecent" },
-      { name: "least Recent", value: "leastRecent" },
-    ],
+    date: true,
+    mosaickingOrder: mosaickingOrder,
+    upsampling,
+    downsampling,
+    minQa: true,
   },
 };

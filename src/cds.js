@@ -6,6 +6,7 @@ import "@cds/core/alert/register.js";
 import "@cds/core/toggle/register.js";
 import "@cds/core/divider/register.js";
 import "@cds/core/input/register.js";
+import "@cds/core/date/register.js";
 
 import "@cds/core/icon/register.js";
 import { ClarityIcons, timesIcon, plusCircleIcon } from "@cds/core/icon";
