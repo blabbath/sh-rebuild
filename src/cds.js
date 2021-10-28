@@ -14,6 +14,12 @@ import {
     timesIcon,
     plusCircleIcon,
     infoCircleIcon,
+    downloadCloudIcon,
 } from '@cds/core/icon';
 
-ClarityIcons.addIcons(timesIcon, plusCircleIcon, infoCircleIcon);
+ClarityIcons.addIcons(
+    timesIcon,
+    plusCircleIcon,
+    infoCircleIcon,
+    downloadCloudIcon
+);

@@ -1,12 +1,15 @@
 <template>
     <app-alert-error></app-alert-error>
     <div cds-layout="grid gap:md m-y:xl">
-        <div cds-layout="col@sm:4 p-y:md p-x:xl" class="form-column">
-            <app-form></app-form>
+        <div cds-layout="col@sm:5 p-y:md p-x:xl" class="form-column">
+            <div cds-layout="grid cols@sm:6 gap:xl">
+                <app-form></app-form>
+                <app-output></app-output>
+            </div>
             <app-evalscript></app-evalscript>
             <app-help></app-help>
         </div>
-        <div cds-layout="col@sm:8 p:md p-x:xl">
+        <div cds-layout="col@sm:7 p:md p-x:xl">
             <app-map></app-map>
         </div>
     </div>
@@ -15,9 +18,9 @@
 <script>
 import './cds';
 import AppMap from './components/Map.vue';
-
-import AppForm from './components/Form.vue';
 import AppAlertError from './components/AlertError.vue';
+import AppForm from './components/Form.vue';
+import AppOutput from './components/Output.vue';
 import AppEvalscript from './components/Evalscript.vue';
 import AppHelp from './components/Help.vue';
 
@@ -25,9 +28,10 @@ export default {
     name: 'App',
 
     components: {
+        AppAlertError,
         AppMap,
         AppForm,
-        AppAlertError,
+        AppOutput,
         AppEvalscript,
         AppHelp,
     },

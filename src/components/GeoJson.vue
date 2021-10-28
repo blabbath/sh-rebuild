@@ -1,7 +1,8 @@
 <template>
     <p cds-text="section">GeoJSON:</p>
-    <pre v-html="geojson" cds-text="body" cds-layout="p-y:lg" v-if="geojson"></pre>
-    <pre cds-text="body" cds-layout="p-y:lg" v-else>[]</pre>
+    <textarea v-html="geojson" cds-text="body" v-if="geojson"></textarea>
+    <textarea cds-text="body" v-else>[]</textarea>
+    <cds-button>Parse</cds-button>
 </template>
 
 <script>
@@ -14,4 +15,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+textarea {
+    width: 100%;
+    height: 8rem;
+}
+</style>

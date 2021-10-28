@@ -3,7 +3,7 @@
         <div id="map" class="map"></div>
     </div>
     <div cds-layout="grid">
-        <div cds-layout="col@xl:3 p-y:lg">
+        <div cds-layout="col@xl:3 p-y:lg vertical gap:lg p-r:lg">
             <app-geo-json></app-geo-json>
             <app-area></app-area>
         </div>
@@ -60,7 +60,7 @@ export default {
     },
 
     computed: {
-        ...mapState('shared', ['evalscript']),
+        ...mapState('shared', ['evalscript', 'image', 'width', 'height']),
         inputs() {
             let array = [];
             this.$store.state.shared.inputModules.forEach((element) => {
@@ -79,7 +79,9 @@ export default {
                             },
                         }),
                         ...(satOptions[sat].cloudCoverage && {
-                            maxCloudCoverage: this.$store.state[element].maxCC,
+                            maxCloudCoverage: parseFloat(
+                                this.$store.state[element].maxCC
+                            ),
                         }),
                         ...(satOptions[sat].tiers && {
                             tiers: this.$store.state[element].tiers,
@@ -154,13 +156,25 @@ export default {
                     },
                     data: [...this.inputs],
                 },
+                output: {
+                    width: parseFloat(this.width),
+                    height: parseFloat(this.height),
+                    responses: [
+                        {
+                            identifier: 'default',
+                            format: {
+                                type: this.image,
+                            },
+                        },
+                    ],
+                },
                 evalscript: null,
             };
 
             body.evalscript = this.evalscript;
             this.body = JSON.stringify(body);
             body.evalscript = this.evalscript.replace(/\n/g, '<br>'); //For better readability in the browser
-            this.showBody = JSON.stringify(body, null, 4);
+            this.showBody = JSON.stringify(body, null, 2);
         },
 
         removeImage() {
@@ -187,6 +201,7 @@ export default {
             });
 
             this.map.addLayer(layer);
+            this.$store.commit('shared/SAVE_IMAGE', imageUrl);
         },
 
         removePolygon() {

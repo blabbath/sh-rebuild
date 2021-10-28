@@ -1,4 +1,7 @@
 /* INITIAL STATE */
+const width = 512;
+const height = 343.697;
+
 export default () => ({
     inputModules: ['input'],
     errorCount: 0,
@@ -25,4 +28,10 @@ export default () => ({
   `,
     area: null,
     geojson: null,
+    image: 'image/jpeg',
+    width: width,
+    height: height,
+    aspectRatio: height / width,
+    imageURL: undefined,
+    geometry: [],
 });

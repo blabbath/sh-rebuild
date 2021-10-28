@@ -3,7 +3,7 @@
         <label>Mosaicking Order</label>
         <select v-model="update">
             <option
-                v-for="option in satelliteOptions[satellite].mosaickingOrder"
+                v-for="option in satelliteOptions[satellite].mosaickOrder"
                 :key="option"
                 :name="option.name"
                 :value="option.value"

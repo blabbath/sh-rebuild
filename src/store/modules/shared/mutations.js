@@ -14,8 +14,24 @@ export default {
     },
 
     SET_GeoJSON(state, geojson) {
-        let geo = JSON.stringify(geojson, null, 4);
+        let geo = JSON.stringify(geojson, null, 2);
         state.geojson = geo;
+    },
+
+    SET_WIDTH(state, width) {
+        state.width = width;
+        let height = state.width * state.aspectRatio;
+        state.height = height.toFixed(3);
+    },
+
+    SET_HEIGHT(state, height) {
+        state.height = height;
+        let width = state.height / state.aspectRatio;
+        state.width = width.toFixed(3);
+    },
+
+    SET_IMAGE_FORMAT(state, image) {
+        state.image = image;
     },
 
     ERROR_OCCURED(state) {
@@ -28,5 +44,9 @@ export default {
 
     REMOVE_INPUT_MODULE(state, id) {
         state.inputModules = state.inputModules.filter((i) => i !== id);
+    },
+
+    SAVE_IMAGE(state, image) {
+        state.imageURL = image;
     },
 };

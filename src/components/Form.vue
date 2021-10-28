@@ -14,9 +14,7 @@
             >
         </cds-form-group>
         <div cds-layout="p-y:md">
-            <cds-button size="sm" @click.prevent="addModule"
-                >Add Input
-            </cds-button>
+            <cds-button @click.prevent="addModule">Add Input </cds-button>
         </div>
     </form>
 </template>
