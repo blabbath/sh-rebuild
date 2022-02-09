@@ -14,8 +14,7 @@ export default {
     },
 
     SET_GeoJSON(state, geojson) {
-        let geo = JSON.stringify(geojson, null, 2);
-        state.geojson = geo;
+        state.geometry = geojson;
     },
 
     SET_WIDTH(state, width) {
@@ -48,5 +47,10 @@ export default {
 
     SAVE_IMAGE(state, image) {
         state.imageURL = image;
+    },
+
+    PARSE_NEW_GEOMETRY(state, value) {
+        state.geometry = value;
+        state.geometryCounter = state.geometryCounter + 1;
     },
 };

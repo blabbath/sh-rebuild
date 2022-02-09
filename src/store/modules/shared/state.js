@@ -27,11 +27,12 @@ export default () => ({
       }
   `,
     area: null,
-    geojson: null,
+    geojson: [],
     image: 'image/jpeg',
     width: width,
     height: height,
     aspectRatio: height / width,
     imageURL: undefined,
     geometry: [],
+    geometryCounter: 0,
 });

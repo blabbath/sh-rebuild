@@ -1,8 +1,14 @@
 <template>
     <p cds-text="section">GeoJSON:</p>
-    <textarea v-html="geojson" cds-text="body" v-if="geojson"></textarea>
-    <textarea cds-text="body" v-else>[]</textarea>
-    <cds-button>Parse</cds-button>
+    <cds-textarea>
+        <label>GeoJSON Input/Output</label>
+        <textarea
+            v-html="JSON.stringify(geometry, null, 2)"
+            cds-text="body"
+            id="geojson-input"
+        ></textarea>
+    </cds-textarea>
+    <cds-button @click="parse()">Parse</cds-button>
 </template>
 
 <script>
@@ -10,7 +16,15 @@ import { mapState } from 'vuex';
 
 export default {
     computed: {
-        ...mapState('shared', ['geojson']),
+        ...mapState('shared', ['geometry']),
+    },
+
+    methods: {
+        parse() {
+            let geometry = document.getElementById('geojson-input').value;
+            geometry = JSON.parse(geometry);
+            this.$store.commit('shared/PARSE_NEW_GEOMETRY', geometry);
+        },
     },
 };
 </script>

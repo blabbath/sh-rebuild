@@ -38,4 +38,8 @@ export default {
     SAVE_IMAGE({ commit }, image) {
         commit('SAVE_IMAGE', image);
     },
+
+    PARSE_NEW_GEOMETRY({ commit }, value) {
+        commit('PARSE_NEW_GEOMETRY'), value;
+    },
 };

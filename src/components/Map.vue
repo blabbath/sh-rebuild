@@ -41,7 +41,6 @@ export default {
     data() {
         return {
             map: null,
-            bbox: [],
             osm: new TileLayer({
                 source: new OSM(),
             }),
@@ -60,7 +59,14 @@ export default {
     },
 
     computed: {
-        ...mapState('shared', ['evalscript', 'image', 'width', 'height']),
+        ...mapState('shared', [
+            'evalscript',
+            'image',
+            'width',
+            'height',
+            'geometry',
+            'geometryCounter',
+        ]),
         inputs() {
             let array = [];
             this.$store.state.shared.inputModules.forEach((element) => {
@@ -125,6 +131,10 @@ export default {
         evalscript() {
             this.createBody();
         },
+
+        geometryCounter() {
+            this.fetchImage();
+        },
     },
 
     mounted() {
@@ -141,7 +151,7 @@ export default {
         this.map.addInteraction(this.draw);
 
         this.draw.on('drawstart', this.removePolygon);
-        this.draw.on('drawend', (e) => this.fetchImage(e));
+        this.draw.on('drawend', (e) => this.prepareFetch(e));
     },
 
     methods: {
@@ -149,7 +159,7 @@ export default {
             let body = {
                 input: {
                     bounds: {
-                        bbox: this.bbox,
+                        bbox: this.geometry,
                         properties: {
                             crs: this.crs,
                         },
@@ -193,7 +203,7 @@ export default {
             const layer = new ImageLayer({
                 source: new Static({
                     url: imageUrl,
-                    imageExtent: this.bbox,
+                    imageExtent: this.geometry,
                     crossOrigin: 'anonymous',
                 }),
                 name: 'sentinel-layer',
@@ -208,15 +218,19 @@ export default {
             drawSource.clear();
         },
 
-        fetchImage(e) {
-            this.bbox = e.feature.getGeometry().getExtent(); //get drawn Polygon extent
-            let area = getArea(fromExtent(this.bbox));
-            this.createBody();
+        prepareFetch(e) {
+            let bbox = e.feature.getGeometry().getExtent(); //get drawn Polygon extent
+            let area = getArea(fromExtent(bbox));
 
             this.$store.commit('shared/SET_AREA', area);
-            this.$store.commit('shared/SET_GeoJSON', this.bbox);
+            this.$store.commit('shared/SET_GeoJSON', bbox);
 
             this.removeImage(); //remove previous image before loading the next one
+            this.fetchImage();
+        },
+
+        fetchImage() {
+            this.createBody();
             instance({
                 method: 'POST',
                 url: '/api/v1/process',
@@ -228,7 +242,8 @@ export default {
                     this.addImage(response);
                     this.removePolygon();
                 })
-                .catch(() => {
+                .catch((error) => {
+                    console.error(error);
                     this.$store.commit(`shared/ERROR_OCCURED`);
                 });
         },
