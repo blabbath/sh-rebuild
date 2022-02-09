@@ -1,5 +1,4 @@
-# ol-raster
-
+# sh-app
 ## Project setup
 ```
 npm install
@@ -19,6 +18,8 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Environment Variables
+Put your Client ID and Client Secret obtained from Sentinel Hub into <br> 
+a .env.local file on the top-level project foldes like this:
+`VUE_APP_SENTINEL_CLIENT_ID='YOUR_CLIENT_ID'`<br>
+`VUE_APP_SENTINEL_CLIENT_SECRET='YOUR_CLIENT_SECRET'`
