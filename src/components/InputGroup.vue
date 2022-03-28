@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import AppIdentifier from './Identifier';
+import AppIdentifier from './Identifier.vue';
 import AppDatePicker from './DatePicker.vue';
 import AppMaxCC from './MaxCC.vue';
 import AppMosaick from './MosaickingOrder.vue';

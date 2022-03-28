@@ -14,7 +14,7 @@
 import AppImageFormat from './ImageFormat.vue';
 import AppWidth from './Width.vue';
 import AppHeight from './Height.vue';
-import AppImageDownload from './ImageDownload';
+import AppImageDownload from './ImageDownload.vue';
 
 export default {
     components: { AppImageFormat, AppWidth, AppHeight, AppImageDownload },

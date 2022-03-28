@@ -51,6 +51,7 @@ export default {
 
     PARSE_NEW_GEOMETRY(state, value) {
         state.geometry = value;
+        console.log(state.geometry);
         state.geometryCounter = state.geometryCounter + 1;
     },
 };

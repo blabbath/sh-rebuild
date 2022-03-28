@@ -39,12 +39,12 @@ export default {
 </script>
 
 <style>
-@import '~@cds/core/styles/module.reset.min.css';
-@import '~@cds/core/styles/module.tokens.min.css';
-@import '~@cds/core/styles/module.layout.min.css';
-@import '~@cds/core/styles/module.typography.min.css';
-@import '~@cds/core/styles/module.shims.min.css';
-@import '~@cds/city/css/bundles/default.min.css';
+@import '@cds/core/styles/module.reset.min.css';
+@import '@cds/core/styles/module.tokens.min.css';
+@import '@cds/core/styles/module.layout.min.css';
+@import '@cds/core/styles/module.typography.min.css';
+@import '@cds/core/styles/module.shims.min.css';
+@import '@cds/city/css/bundles/default.min.css';
 
 #app {
     color: #2c3e50;
